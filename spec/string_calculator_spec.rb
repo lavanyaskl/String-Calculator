@@ -4,51 +4,22 @@ RSpec.describe StringCalculator do
   let(:subject) { described_class.new }
   
   describe '#add' do
-    it 'returns 0 for an empty string' do
-      expect(subject.add('')).to eq(0)
-    end
-
-    context 'when the string contains a number' do
-      it 'returns the given value from string' do
-        expect(subject.add('3')).to eq(3)
-      end
-
-      it 'returns the given value from string' do
-        expect(subject.add('100')).to eq(100)
+    shared_examples 'returns the sum of numbers' do |input, expected|
+      it "returns #{expected} for input '#{input}'" do
+        expect(subject.add(input)).to eq(expected)
       end
     end
 
-    context 'when the string contains 2 numbers separated by comma' do
-      it 'returns the sum of the numbers' do
-        expect(subject.add('3,5')).to eq(8)
-      end
-
-      it 'returns the sum of the numbers' do
-        expect(subject.add('6, 8')).to eq(14)
-      end
-    end
-
-    context 'when the string contains many numbers separated by comma' do
-      it 'returns the sum of the numbers' do
-        expect(subject.add('1,3,5')).to eq(9)
-      end
-
-      it 'returns the sum of the numbers' do
-        expect(subject.add('6, 8, 7, 0, 1,  9')).to eq(31)
-      end
-    end
-
-    context 'when the string contains many numbers separated by comma and \n' do
-      it 'returns the sum of the numbers' do
-        expect(subject.add("1\n2,3")).to eq(6)
-      end
-    end
-
-    context 'when the string contains many numbers separated by a dynamic demiliter' do
-      it 'returns the sum of the numbers' do
-        expect(subject.add("//;\n1;2")).to eq(3)
-      end
-    end
+    include_examples 'returns the sum of numbers', '', 0
+    include_examples 'returns the sum of numbers', '3', 3
+    include_examples 'returns the sum of numbers', '100', 100
+    include_examples 'returns the sum of numbers', '3,5', 8
+    include_examples 'returns the sum of numbers', '6, 8', 14
+    include_examples 'returns the sum of numbers', '1,3,5', 9
+    include_examples 'returns the sum of numbers', '6, 8, 7, 0, 1,  9', 31
+    include_examples 'returns the sum of numbers', "1\n2,3", 6
+    include_examples 'returns the sum of numbers', "//;\n1;2", 3
+    include_examples 'returns the sum of numbers', "//;1;2\n", 3
 
     context 'when the string contains negative numbers' do
       it 'raises runtime erorr with proper message' do
