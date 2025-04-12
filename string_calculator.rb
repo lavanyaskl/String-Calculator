@@ -1,13 +1,13 @@
 class StringCalculator
   def add(string)
-      0 if string.strip.empty?
+      return 0 if string.strip.empty?
 
       check_for_negative_numbers(string)
   rescue RuntimeError => e
       raise e
   else
-      delimiter = string[0..1] == '//' ? string[2] : ','
-      number = string.start_with?('//') ? string.gsub('//', '') : string
+      delimiter = string.start_with?('//') ? string[2] : ','
+      number = string.start_with?('//') ? string[3..] : string
 
       number.split(/[\s#{delimiter}]+/).map(&:to_i).sum
   end
