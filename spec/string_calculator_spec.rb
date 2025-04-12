@@ -52,7 +52,7 @@ RSpec.describe StringCalculator do
 
     context 'when the string contains negative numbers' do
       it 'returns erorr message' do
-        expect(subject.add("//;\n-1;-2")).to eq('negative numbers not allowed -1, -2')
+        expect { subject.add("//;\n-1;-2") }.to raise_error(RuntimeError, 'negative numbers not allowed -1, -2')
       end
     end
   end
