@@ -37,5 +37,11 @@ RSpec.describe StringCalculator do
         expect(subject.add('6, 8, 7, 0, 1,  9')).to eq(31)
       end
     end
+
+    context 'when the string contains many numbers separated by comma and \n' do
+      it 'returns the sum of the numbers' do
+        expect(subject.add("1\n2,3")).to eq(6)
+      end
+    end
   end
 end
