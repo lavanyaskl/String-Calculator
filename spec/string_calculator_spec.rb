@@ -43,5 +43,17 @@ RSpec.describe StringCalculator do
         expect(subject.add("1\n2,3")).to eq(6)
       end
     end
+
+    context 'when the string contains many numbers separated by a dynamic demiliter' do
+      it 'returns the sum of the numbers' do
+        expect(subject.add("//;\n1;2")).to eq(3)
+      end
+    end
+
+    context 'when the string contains negative numbers' do
+      it 'returns erorr message' do
+        expect(subject.add("//;\n-1;-2")).to eq('negative numbers not allowed -1, -2')
+      end
+    end
   end
 end
